@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>sumpage</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="/resources/css/styles.css" type="text/css"/>
+    </head>
+    <body>
+        <p name="strsection" th:text=" ${func} + ' of '+ ${x} + ' and ' + ${y} + ' is '  + ${answer} " />
+    </body>
+</html>
