@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -20,14 +20,14 @@ public class MathControllerTest {
 
 	@Test
 	public void getHello() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	public void getAddition() throws Exception {
 
-		mvc.perform(MockMvcRequestBuilders.get("/sum?x=5&y=7").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/sum?x=5&y=7").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(model().attributeExists("func"))
 				.andExpect(model().attributeExists("x"))
@@ -41,7 +41,7 @@ public class MathControllerTest {
 
 	@Test
 	public void getMultiplication() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/mul?x=30&y=2").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/mul?x=30&y=2").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(model().attribute("func","Multiplication"))
 				.andExpect(model().attribute("answer","60"));
@@ -49,7 +49,7 @@ public class MathControllerTest {
 
 	@Test
 	public void getSubtraction() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/sub?x=8&y=2").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/sub?x=8&y=2").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(model().attribute("func","Subtraction"))
 				.andExpect(model().attribute("answer","6"));
@@ -57,19 +57,19 @@ public class MathControllerTest {
 
 	@Test
 	public void getinvalidAddition() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/sub?x=967").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/sub?x=967").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isBadRequest());
 	}
 
 	@Test
 	public void getinvalidAdditionWithStr() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/sub?x=you").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/sub?x=you").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isBadRequest());
 	}
 
 	@Test
 	public void getinvalidAdditionWithStrAndBothValues() throws Exception {
-		mvc.perform(MockMvcRequestBuilders.get("/sub?x=you&y=234").accept(MediaType.TEXT_HTML))
+		mvc.perform(MockMvcRequestBuilders.get("/sub?x=you&y=234").accept(MediaType.TEXT_HTML)).andDo(print())
 				.andExpect(status().isBadRequest());
 	}
 
